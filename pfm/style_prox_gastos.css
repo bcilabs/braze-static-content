@@ -1,0 +1,220 @@
+html {
+  touch-action:none!important;
+}
+.main {
+  width: 100%;
+}
+.main__slide {
+  width: inherit;
+}
+.main__slide__description p {
+  margin: 20px 0 0;
+}
+.textlink{
+  color: #6200EE;
+  text-decoration: underline;
+}
+.normal{
+  font-size: 18px;
+  line-height: 24px;
+}
+#bg_proyectados{
+  background: url('https://uploads-ssl.webflow.com/5ed69cbee53b0a8b762ce25b/63f4a391f8f1ed0acc852a24_fondo_2.png') no-repeat left top, linear-gradient(#5503CA, #6222C1);
+  background-size: cover, cover;
+  /*
+  background-color: #6200EE;
+  background: linear-gradient(0deg, rgba(144,67,255,1) 0%, rgba(85,3,202,1) 100%);
+  background-image: url('https://uploads-ssl.webflow.com/5ed69cbee53b0a8b762ce25b/63bc4ea7a74a061858521167_fondo.png');
+  */
+  display: block;
+}
+.top_elipse{
+  width: 200%;
+  position: absolute;
+  bottom: 100vh;
+  max-width: inherit;
+  left: -50%;
+}
+.active .top_elipse{
+  animation-name: animation_elipsetop;
+  animation-duration: 0.8s;
+  animation-fill-mode: forwards;
+  transition-timing-function: ease-in;
+}
+.footer {
+  height: 124px;
+}
+@keyframes animation_elipsetop {
+  0% {
+    bottom: 100vh;
+  }
+  80% {
+    bottom: calc(100vh - 330px);
+  }
+  100% {
+    bottom: calc(100vh - 320px);
+  }
+}
+.dots{
+  position: absolute;
+  opacity: 0;
+}
+.active .dots{
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  animation-name: fadeInAnimation;
+  animation-duration: 9s;
+  animation-fill-mode: forwards;
+}
+.main__slide__free_html{
+  line-height: 30px;
+  pointer-events: all!important;
+}
+.estilo1 .top_listas.bg_white{
+  border-radius: 10px;
+  background: #fff;
+  color: #333;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.16);
+}
+.estilo2 .top_listas{
+  margin-bottom: 10px;
+}
+.estilo3 .top_listas{
+  margin-bottom: -10px;
+}
+.estilo3 .top_listas_un_elemento{
+  padding:20px;
+}
+.estilo1 .top_listas_un_elemento{
+  border-bottom: 1px solid #D8D8D8;
+}
+.estilo2 .top_listas_un_elemento,
+.estilo3 .top_listas_un_elemento{
+  background-color: #ffffff;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  color: #333333;
+}
+.main__slide.2 .top_listas_un_elemento{
+  padding: 20px;
+  margin-bottom: 5px;
+}
+.bubble_morada{
+  width: 143px;
+  transform: scale(0);
+  margin-top: 140px;
+  overflow: hidden;
+  background-image: url('https://uploads-ssl.webflow.com/5ed69cbee53b0a8b762ce25b/63bc4e35e525a23608ba6d64_bubble_morada.svg');
+  background-repeat: no-repeat;
+  font-size: 12px;
+  line-height: 14px;
+  color: #000;
+  font-style: italic;
+  color: #fff;
+  padding: 20px;
+  margin-top: -20px;
+  height: 200px;
+}
+.active .bubble_morada{
+  animation: animacion_bubble_morada 0.4s;
+  animation-delay: 1s;
+  transition-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+#texto_btt_secundario{
+  background-color: inherit;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+@keyframes animacion_bubble_morada {
+  0% {
+    margin-top: 60px;
+    margin-left: -60px;
+    transform: scale(0);
+  }
+  100% {
+    margin-top: -20px;
+    margin-left: 0px;
+    transform: scale(1);
+  }
+}
+#saber_mas{
+  display: block;
+  padding-right: 30px;
+  text-align: right;
+  color: #fff;
+}
+.estilo2 #saber_mas {
+  padding-left: 30px;
+  text-align: center;
+}
+#saber_mas a{
+  color: #fff;
+}
+.estilo2 #saber_mas a{
+  text-decoration: none;
+}
+.ico{
+  width: 24px;
+  margin-left: 5px;
+  vertical-align: bottom;
+}
+@media (max-height: 670px) {
+  .normal{
+    font-size: 16px;
+    line-height: 21px;
+  }
+  .top_listas{
+    max-height: 45vh;
+  }
+  .top_listas_un_elemento {
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+  .bubble_morada{
+    display: none;
+  }
+  .nombre_lista{
+    font-size: 14px;
+  }
+  .bajada_lista{
+    font-size: 13px;
+  }
+  .monto_lista{
+    font-size: 14px;
+  }
+
+  .top_elipse{
+    width: 200%;
+    position: absolute;
+    bottom: 100vh;
+    left: -50%;
+    max-width: none;
+    max-width: inherit;
+  }
+  .active .top_elipse{
+    animation-name: animation_elipsetop2;
+    animation-duration: 0.8s;
+    animation-fill-mode: forwards;
+    transition-timing-function: ease-in;
+    max-width: inherit;
+  }
+  @keyframes animation_elipsetop2 {
+    0% {
+      bottom: 100vh;
+    }
+    80% {
+      bottom: calc(100vh - 310px);
+    }
+    100% {
+      bottom: calc(100vh - 300px);
+    }
+  }
+}
+@media (min-height: 900px) {
+  .top_listas{
+    max-height: 50vh;
+  }
+}
+/***ANIMACIONES***/

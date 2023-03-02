@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+		<style>
+		@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,600;0,700;1,600&display=swap');
+		</style>
+		<link rel="stylesheet" href="../utils/style_machdatos3.css"/>
+		<link rel="stylesheet" href="../utils/css_componentes/style_listas.css"/>
+		<link rel="stylesheet" href="../utils/css_componentes/style_modal.css"/>
+		<link rel="stylesheet" href="style_prox_gastos.css"/>
+
+		<title>Bienvenido al Nuevo MACH</title>
+
+	</head>
+
+	<body id="body">
+		<!-- INICIO HTML CONTENT -->
+		<!-- //////////////// -->
+		<div id="loader">
+			cargando...
+		</div>
+		<div class="main__header">
+			<img class="mach_header" src="https://uploads-ssl.webflow.com/5ed69cbee53b0a8b762ce25b/6394905a8871b163407b6dcd_mach.svg" alt="MACH"/>
+			<a class="btt_close" href="machapp://open/home">
+				<svg class="main__header__close" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M0.585786 20.5858C-0.195262 21.3668 -0.195262 22.6332 0.585787 23.4142C1.36684 24.1953 2.63317 24.1953 3.41421 23.4142L12 14.8284L20.5858 23.4142C21.3668 24.1953 22.6332 24.1953 23.4142 23.4142C24.1953 22.6332 24.1953 21.3668 23.4142 20.5858L14.8284 12L23.4142 3.41421C24.1953 2.63317 24.1953 1.36683 23.4142 0.585787C22.6332 -0.195262 21.3668 -0.195262 20.5858 0.585787L12 9.17157L3.41421 0.585788C2.63317 -0.195261 1.36684 -0.195261 0.585787 0.585788C-0.195262 1.36684 -0.195262 2.63317 0.585787 3.41422L9.17157 12L0.585786 20.5858Z" fill="#ffffff"/>
+				</svg>
+			</a>
+		</div>
+
+
+		<main class="main" id="all_slides">
+			<div class="main__slide" id="slide-cierre" data-contenido="cierre">
+				<div class="main_slide_content">
+					<div class="main__slide__description_big">
+						<p id="display_titulo">Lo que se viene 🔮</p>
+					</div>
+					<div class="main__slide__description contenidos_data contenidos_solo1">
+						<p class="small align_left light">Estos son los gastos que normalmente tienes en estas fechas:</p>
+						<p id="cont_display_suma_gastos" class="xtrasmall align_right light" style="width: 50%;">
+							Probablamente vas a necesitar<br>
+							<strong class="destacado" id="display_suma_gastos"></strong>
+						</p>
+					</div>
+                    <div class="main__slide__description contenidos_data contenidos_solo2">
+						<p class="normal light">Tomando en cuenta los gastos que sueles tener en estas fechas, podrías necesitar un <strong>total de <span id="display_suma_gastos"></span></strong>, en los siguientes cargos:</p>
+					</div>
+                    <div class="main__slide__description contenidos_data contenidos_solo3">
+						<p class="normal light">Estos son los gastos que tienes periódicamente en estas fechas</p>
+					</div>
+					<div class="main__slide__description contenidos_nodata">
+						<p class="small light">No tienes movimientos proyectados esta semana.</p>
+					</div>
+					<div class="main__slide__free_html">
+						<div id="display_gastos_proyectados" class="top_listas bg_white contenidos_data">
+							<!-- dentro de este elemeneto se despliegan las variables de arr_gastos -->
+						</div>
+						<div id="saber_mas" class="small contenidos_solo1">* <a href="#" id="btt_saber_mas">Saber más <img class="ico" src="https://uploads-ssl.webflow.com/5ed69cbee53b0a8b762ce25b/63bc4e71061a3b3d94ce4b13_ico_info.svg" alt="información"></a></div>
+						<div id="saber_mas" class="small contenidos_solo2"><a href="#" id="btt_saber_mas">¿Cómo se calcula esta predicción? <img class="ico" src="https://uploads-ssl.webflow.com/5ed69cbee53b0a8b762ce25b/63bc4e71061a3b3d94ce4b13_ico_info.svg" alt="información"></a></div>
+						<div class="bubble_morada contenidos_data contenidos_solo1">¡Mientras más uses tu MACH te podremos recordar más pagos!</div>
+					</div>
+                    <div class="main__slide__description contenidos_data contenidos_solo3">
+						<p class="normal light">Te recomendamos tener un <strong>saldo de <span id="display_suma_gastos"></span></strong> para tus próximos cargos.</p>
+					</div>
+				</div>
+				<div id="bg_proyectados" class="canvas_bg">
+					<img class="top_elipse" src="https://uploads-ssl.webflow.com/5ed69cbee53b0a8b762ce25b/63d8f85e7de2b7073ed57617_top_elipse.svg"/>
+					<div class="dots"></div>
+				</div>
+			</div>
+		</main>
+
+		<div id="modal">
+			<div id="overlay"></div>
+			<div id="contenido_modal">
+				<div id="elemento_superior_modal"></div>
+				<div id="info_modal">
+					<p class="titulo_modal"><strong>Acerca de esta información</strong></p>
+					<p class="">Esta información está calculada el día <span id="display_feedback_fecha_calculo"></span> en base a tu comportamiento histórico, es sólo de referencia y puede tener unos días de desfase. Considera los pagos recurrentes a las principales plataformas de suscripción, compras con MACH, pago de cuotas y ahorros programados.
+						<br><br>
+						Para revisar tus movimientos efectivamente realizados ingresa a “Ver mis movimientos” desde el home de MACH.
+						<br><br>
+						Si quieres saber cómo administrar tus suscripciones <a class="textlink" href="https://ayuda.somosmach.com/hc/es/articles/6304702307597-Administra-tus-suscripciones">ingresa acá</a>.</p>
+					<br>
+						<button id="btt_feedback" data-tf-popup="mABcH4TD" data-tf-hide-headers data-tf-size="70" data-tf-auto-close="1000" data-tf-iframe-props="title=Feedback MACHDatos _01" data-tf-medium="snippet" data-tf-hidden="correo=,contenido=gastos-proyectados" style="border:1px solid #6200EE; font-family: 'Nunito', sans-serif; display:inline-block;width:100%;margin-left: 0px!important;margin-right: 0px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background-color:#ffffff;color:#6200EE;font-size:18px;border-radius:8px;padding:0 23px;font-weight:400;height:48px;cursor:pointer;line-height:35px;text-align:center;margin:0;margin-bottom:10px;text-decoration:none;">¡Envíanos tus comentarios!</button><script src="//embed.typeform.com/next/embed.js"></script>
+ 					<a class="modal_btt" id="boton_cerrar_modal" href="#"><span class="ultimo">Cerrar</span></a>
+				</div>
+			</div>
+		</div>
+		<footer class="footer">
+			<div class="footer__action last-object">
+                <a id="footer_btt_info" class="footer__link" href="#"><span id="texto_btt_secundario" class="footer__link__content ultimo">Saber más</span></a>
+				<a class="footer__link" href="machapp://open/cashin"><span id="texto_btt_principal" class="footer__link__content ultimo">¿Quieres cargar tu MACH?</span></a>
+			</div>
+		</footer>
+		<!-- //////////////// -->
+		<!-- FIN HTML CONTENT -->
+
+	<script>
+		//FUNCIONES
+		const formatter = new Intl.NumberFormat('es-CL', {
+			style: 'currency',
+			currency: 'CLP',
+			minimumFractionDigits: 0
+		})
+		//funciones para dar formato a la fecha que se muestra en cada uno de los movimientos
+		const dias_semana = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"];
+		Date.prototype.addDays = function(days) {
+		  var date = new Date(this.valueOf());
+		  date.setDate(date.getDate() + days);
+		  return dias_semana[date.getDay()];
+		}
+
+		const date1 = new Date();
+		date1.setHours(0, 0, 0, 0);
+
+		function comparacion_dias(fecha_movimiento){ //retorna true si es un día posterior
+			//date 1: fecha actual
+			//date 2: fecha del movimiento
+			date2 = new Date(fecha_movimiento);
+			date2.setDate(date2.getDate()+1);
+			date2.setHours(0, 0, 0, 0);
+			if(date2 >= date1){//es hoy o un día posterior
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		function diff_days(fecha_movimiento){ //
+			//date 1: fecha actual
+			//date 2: fecha del movimiento
+			date2 = new Date(fecha_movimiento);
+			date2.setDate(date2.getDate()+1);
+			date2.setHours(0, 0, 0, 0);
+
+			const diffTime = Math.abs(date2 - (date1));
+			const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+			return diffDays;
+		}
+
+		function formato_dias(fecha_movimiento){ //formato de la fecha en la lista de movimientos
+			//date 1: fecha actual
+			//date 2: fecha del movimiento
+			//date_calculo: fecha en que se calcularon las proyecciones
+			
+			date2 = new Date(fecha_movimiento);
+			date2.setDate(date2.getDate()+1);
+			date2.setHours(0, 0, 0, 0);
+
+			const diffTime = Math.abs(date2 - (date1));
+			const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+			if(diffDays == 0){ //el día es hoy
+				feedback_day = "Hoy";
+			} else if(date2 > date1){ //el día es posterior
+				if(diffDays == 1){
+					feedback_day = "Mañana";
+				} else if(diffDays == 2 || diffDays == 3){ //en estos casos se muestra el día de la semana que será el movimiento
+					feedback_day = "El "+date1.addDays(diffDays-1);
+				} else { //si son 6 o más días, se muestra el número de días en los que será el movimiento
+					feedback_day = "En "+diffDays+" días más";
+				}
+			} else { //el día ya pasó
+				if(diffDays == 1){
+					feedback_day = "Hace "+diffDays+" día";
+				} else {
+					feedback_day = "Hace "+diffDays+" días";
+				}
+			}
+			return feedback_day;
+		}
+		//MODAL
+		//funcion para abrir el modal
+		const handleModal = event => {
+			var element_modal =  document.getElementById('modal');
+			var element_footer = document.getElementsByTagName("footer")[0];
+			if(element_modal.classList.contains("abierto")){
+				element_modal.classList.remove("abierto");
+				element_footer.classList.remove("hidden");
+			} else {
+				element_modal.classList.add("abierto");
+				element_footer.classList.add("hidden");
+			}
+		};
+
+		const array_texto_movimientos = [
+			["PRIME","AMAZON PRIME"],
+			["loan_scheduled_pending","Pago de cuota"]
+		]
+		function formato_nombres(nombre_movimiento){
+            return nombre_movimiento.charAt(0).toUpperCase() + nombre_movimiento.slice(1).toLowerCase();
+		}
+
+		//VARIABLES//
+		//obtiene las variables desde la campaña
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+
+		//OBTENCIÓN DE LAS VARIABLES PARA LAS VISTAS DE INFORMACIÓN
+		//variables slide 1
+		const nombre = urlParams.get('nombre');
+		const arr_gastos = urlParams.get('arr_gastos');
+        const arr_ahorro = urlParams.get('arr_ahorros');
+		const arr_cuotas = urlParams.get('arr_cuotas');
+		const permiso_externos = urlParams.get('permiso_externos');
+		const email_user = urlParams.get('email');
+		const date_calculo = urlParams.get('fecha_update');
+        let version_abtest = parseInt(urlParams.get('estilo')) ? parseInt(urlParams.get('estilo'))-1 : 1;
+
+        let array_textos_interfaz = [
+			{
+				texto_principal: 'Lo que se viene 🔮',
+                texto_boton: 'Carga tu MACH',
+                version_vista: 'gastos-proyectados1',
+                resta_inferior: 280
+			},
+            {
+                texto_principal: '<strong>Tus próximos cobros ✨</strong>',
+                texto_boton: 'Abonar MACH',
+                version_vista: 'gastos-proyectados2',
+                resta_inferior: 160
+			},
+            {
+                texto_principal: '<strong>Tus próximos cargos ✨</strong>',
+                texto_boton: 'Ir a cargar MACH',
+                version_vista: 'gastos-proyectados3',
+                resta_inferior: 220
+			}
+		];
+        if(version_abtest == 0){
+            document.getElementById('slide-cierre').querySelectorAll('.contenidos_solo2').forEach(elemento => {
+                elemento.remove();
+            });
+            document.getElementById('slide-cierre').querySelectorAll('.contenidos_solo3').forEach(elemento => {
+                elemento.remove();
+            });
+        }
+        if(version_abtest == 1){
+            document.getElementById('slide-cierre').querySelectorAll('.contenidos_solo1').forEach(elemento => {
+                elemento.remove();
+            });
+            document.getElementById('slide-cierre').querySelectorAll('.contenidos_solo3').forEach(elemento => {
+                elemento.remove();
+            });
+        }
+        if(version_abtest == 2){
+            document.getElementById('slide-cierre').querySelectorAll('.contenidos_solo1').forEach(elemento => {
+                elemento.remove();
+            });
+            document.getElementById('slide-cierre').querySelectorAll('.contenidos_solo2').forEach(elemento => {
+                elemento.remove();
+            });
+        }
+
+        const gastos = document.querySelector('.top_listas');
+
+        let sumo_externos = 0;
+		let largo_gastos = 0;
+		let suma_gasto = 0;
+		
+       
+        const ico_interno = "https://uploads-ssl.webflow.com/5ed69cbee53b0a8b762ce25b/63d8f8939e8bf40d88765dce_icon-circle-mach.svg";
+        const ico_externo = "https://uploads-ssl.webflow.com/5ed69cbee53b0a8b762ce25b/63d8f894ce3d184e1c3d83e0_icon-world.svg";
+        const txt_ahorro = "Ahorro programado";
+        const txt_cuota = "Pago de cuotas";
+
+        let arr_arr_gastos = [];
+        let arr_arr_arr_ahorro = [];
+        let arr_arr_arr_cuotas = [];
+        let arr_todo = [];
+
+		//aplica variables al botón de feedback
+		const data_btt_feedback =  "correo="+email_user+",contenido="+array_textos_interfaz[version_abtest].version_vista;
+		document.getElementById("btt_feedback").setAttribute("data", "tf-hidden: "+data_btt_feedback);
+
+		//obtiene los datos de los gastos que vienen
+		if(arr_gastos){ //hasta acá arr_gastos aun es un string
+			arr_arr_gastos = arr_gastos.split("!");
+			//aplica filtros a los datos del array
+			arr_arr_gastos = arr_arr_gastos.filter(item => !(item == "")); //elimina los elementos vacíos
+			arr_arr_gastos = arr_arr_gastos.filter(item => !(item.split("|")[2] > 0)); //elimina los ingresos proyectados
+			arr_arr_gastos = arr_arr_gastos.filter(item => !(comparacion_dias(item.split("|")[1]) == false)); //elimina las fechas que ya pasaron
+			arr_arr_gastos = arr_arr_gastos.filter(item => !(item.includes("MACHEO") == true)); //elimina los MACHEOS
+			arr_arr_gastos = arr_arr_gastos.filter(item => !(item.includes("TEF ENVIADA") == true || item.includes("TEF%20ENVIADA") == true)); //elimina las transferencias a 3eros
+		}
+        if(arr_ahorro){ //hasta acá arr_ahorro aun es un string 
+            arr_arr_ahorro = arr_ahorro.split("!");
+            arr_arr_ahorro = arr_arr_ahorro.filter(item => !(item == "")); //elimina los elementos vacíos
+            arr_arr_ahorro = arr_arr_ahorro.filter(item => !(item.includes("withdrawal") == true)); //elimina los retiros
+            arr_arr_ahorro = arr_arr_ahorro.filter(item => !(comparacion_dias(item.split("|")[1]) == false)); //elimina las fechas que ya pasaron
+            //agrega dato al array y ajusta el nombre de los movimientos
+            for (let i = 0; i < arr_arr_ahorro.length; i++) {
+                arr_arr_arr_ahorro.push(txt_ahorro+"|"+arr_arr_ahorro[i].split("|")[1]+"|"+arr_arr_ahorro[i].split("|")[2]*-1+"|true|false");
+            }
+        }
+        if(arr_cuotas){ //hasta acá arr_cuotas aun es un string 
+            arr_arr_cuotas = arr_cuotas.split("!");
+            arr_arr_cuotas = arr_arr_cuotas.filter(item => !(item == "")); //elimina los elementos vacíos
+            arr_arr_cuotas = arr_arr_cuotas.filter(item => !(item.includes("withdrawal") == true)); //elimina los retiros
+            arr_arr_cuotas = arr_arr_cuotas.filter(item => !(comparacion_dias(item.split("|")[1]) == false)); //elimina las fechas que ya pasaron
+            //agrega dato al array y ajusta el nombre de los movimientos
+            for (let i = 0; i < arr_arr_cuotas.length; i++) {
+                arr_arr_arr_cuotas.push(txt_cuota+"|"+arr_arr_cuotas[i].split("|")[1]+"|"+arr_arr_cuotas[i].split("|")[2]*-1+"|true|false");
+            }
+        }
+        arr_todo = arr_arr_gastos.concat(arr_arr_arr_ahorro);
+        arr_todo = arr_todo.concat(arr_arr_arr_cuotas);
+        largo_gastos = arr_todo.length;
+		//ordena el array por fecha: movimientos próximos van antes
+		arr_todo.sort(function(date1, date2) { 
+			date1 = new Date(date1.split("|")[1]);
+			date2 = new Date(date2.split("|")[1]);
+			if (date1 > date2) return 1;
+			if (date1 < date2) return -1;
+		})
+
+		if(arr_gastos && arr_todo.length > 3){ //si viene la variable arr_gastos con datos
+			for (let i = 0; i < largo_gastos; i++) {
+				let origen_movimiento_interno = (arr_todo[i].split("|")[3] == "true") ? 1 : 0; //si el movimiento es interno de MACH o no
+				let ico_origen_movimiento = (arr_todo[i].split("|")[3] == "true") ? ico_interno : ico_externo; //si el movimiento es interno de MACH o no
+
+				const divGasto= document.createElement('div');
+				divGasto.className = 'top_listas_un_elemento';
+				divGasto.innerHTML= '<div class="ico_lista"><img src="'+ico_origen_movimiento+'"/></div><div class="nombre_lista"><span class="">'+formato_nombres(arr_todo[i].split("|")[0]) +'</span></div><div class="monto_lista">'+ formatter.format(arr_todo[i].split("|")[2]*-1) +'<br><div class="bajada_lista"><span id="display_bajada_lista_1">'+ formato_dias(arr_todo[i].split("|")[1]) +'</span></div></div> '
+
+				if(origen_movimiento_interno == 0 && permiso_externos == "true"){ // si el movimiento proyectado es externo y tengo permiso del usuario
+					gastos.appendChild(divGasto);
+					sumo_externos = 1;
+				}
+				if(origen_movimiento_interno == 1){ //suma saldo a agregar solo si el movimiento proyectado es de MACH y es en menos de 7 días
+					gastos.appendChild(divGasto);
+					//if(diff_days(arr_arr_gastos[i].split("|")[1])<8){
+						suma_gasto = suma_gasto + parseInt(arr_todo[i].split("|")[2]);
+					//}
+				}
+			}
+            if(document.getElementById('display_suma_gastos')){
+			    document.getElementById('display_suma_gastos').innerHTML=formatter.format(suma_gasto*-1);
+            }
+		} else { //no tiene info de gastos que desplegar
+			document.getElementById('slide-cierre').querySelectorAll('.contenidos_data').forEach(elemento => {
+				elemento.remove();
+			});
+		}
+		if(suma_gasto !== 0){ //tiene movimientos internos
+			document.getElementById('slide-cierre').querySelectorAll('.contenidos_nodata').forEach(elemento => {
+				elemento.remove();
+			});
+		} else {
+			if(sumo_externos == 1){ //tiene movimientos externos, pero no internos
+				document.getElementById('slide-cierre').querySelectorAll('.contenidos_nodata').forEach(elemento => {
+					elemento.remove();
+				});
+				document.getElementById('cont_display_suma_gastos').remove();
+			} else { //no tiene nada
+				document.getElementById('slide-cierre').querySelectorAll('.contenidos_data').forEach(elemento => {
+					elemento.remove();
+				});
+			}
+		}
+
+		if(date_calculo && date_calculo.length > 3){ //muestra la fecha de actualización del dato en el modal
+			document.getElementById('display_feedback_fecha_calculo').innerHTML=date_calculo;
+		}
+        document.getElementById('display_titulo').innerHTML=array_textos_interfaz[version_abtest].texto_principal;
+        document.getElementById('texto_btt_principal').innerHTML=array_textos_interfaz[version_abtest].texto_boton;
+		if(document.getElementById('display_gastos_proyectados')){
+        	document.getElementById('display_gastos_proyectados').style.maxHeight = screen.height - 228 - array_textos_interfaz[version_abtest].resta_inferior+"px";
+		}
+		if(version_abtest == 0 || version_abtest == 1){
+            document.getElementsByClassName("footer")[0].classList.add("un_boton");
+            document.getElementById('footer_btt_info').remove();
+        }
+
+		//INICIA
+		const initialize = () => {
+			document.getElementById('loader').style.display="none";
+            if(document.getElementById("btt_saber_mas")){
+			    document.getElementById("btt_saber_mas").addEventListener("click", handleModal);
+            }
+            if(document.getElementById("footer_btt_info")){
+			    document.getElementById("footer_btt_info").addEventListener("click", handleModal);
+            }
+
+			document.getElementById("overlay").addEventListener("click", handleModal);
+			document.getElementById("boton_cerrar_modal").addEventListener("click", handleModal);
+
+			if(urlParams.get('estilo') && urlParams.get('estilo') == "1"){
+				document.getElementById("slide-cierre").classList.add("active");
+                document.getElementById("slide-cierre").classList.add("estilo1");
+			}
+			if(urlParams.get('estilo') && urlParams.get('estilo') == "2"){
+				document.getElementById("slide-cierre").classList.add("estilo2");
+			}
+			if(urlParams.get('estilo') && urlParams.get('estilo') == "3"){
+				document.getElementById("slide-cierre").classList.add("estilo3");
+			}
+		};
+
+		window.onload = function() {
+			setTimeout(function() {
+				initialize();
+			}, 500);
+		};
+	</script>
+	</body>
+</html>
